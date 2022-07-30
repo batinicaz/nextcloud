@@ -21,9 +21,22 @@ resource "linode_instance" "instance" {
     image            = var.image
     authorized_users = [data.linode_profile.current.username]
     label            = "boot"
-    size             = var.instance_disk_size_gb * 1024 // Need to provide size in MB
+    size             = var.instance_disk_size_gb * 1000 // Need to provide size in MB
     stackscript_id   = var.boot_command != "" ? linode_stackscript.instance_boot_command[0].id : null
   }
+
+  config {
+    label  = "boot_config"
+    kernel = "linode/latest-64bit"
+    devices {
+      sda {
+        disk_label = "boot"
+      }
+    }
+    root_device = "/dev/sda"
+  }
+
+  boot_config_label = "boot_config"
 }
 
 resource "linode_firewall" "instance_firewall" {
