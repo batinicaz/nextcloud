@@ -10,6 +10,7 @@ resource "linode_stackscript" "instance_boot_command" {
 }
 
 resource "linode_instance" "instance" {
+  #checkov:skip=CKV_LIN_2:Keys are auto added from user
   backups_enabled = var.backups_enabled
   label           = var.metadata.instance_name
   group           = var.metadata.instance_group
