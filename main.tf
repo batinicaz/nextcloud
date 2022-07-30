@@ -18,7 +18,16 @@ module "linode" {
       ports    = "443"
       ipv4     = ["0.0.0.0/0"]
       ipv6     = ["::/0"]
-    }]
+      },
+      {
+        label    = "allow-dns-lookup"
+        action   = "ACCEPT"
+        protocol = "TCP"
+        ports    = "53"
+        ipv4     = ["0.0.0.0/0"]
+        ipv6     = ["::/0"]
+      }
+    ]
     outbound_policy = "DROP"
   }
   make_public_facing_instance = true
