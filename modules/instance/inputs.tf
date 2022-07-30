@@ -8,6 +8,20 @@ variable "boot_command" {
   default     = ""
 }
 
+variable "domain_config" {
+  description = "Optionally provide configuration for a CloudFlare domain to be added for the instance"
+  type = object({
+    top_level_domain_name = string
+    subdomain_name        = string
+    enabled               = bool
+  })
+  default = {
+    top_level_domain_name = ""
+    subdomain_name        = ""
+    enabled               = false
+  }
+}
+
 variable "firewall_rules" {
   description = "Optionally configure firewall rules for the created instance, default behaviour is outbound https only - drop all incoming"
   type = object({

@@ -23,6 +23,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.LINODE_S3_SECRET_ACCESS_KEY }}
       AWS_REGION: eu-central-1
       # Provider Config
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       LINODE_TOKEN: ${{ secrets.LINODE_TOKEN }}
     steps:
       - uses: actions/checkout@v3

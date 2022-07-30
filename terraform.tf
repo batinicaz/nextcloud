@@ -7,6 +7,10 @@ terraform {
     skip_credentials_validation = true // If false would try and talk to AWS STS
   }
   required_providers {
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 3.0"
+    }
     linode = {
       source  = "linode/linode"
       version = "~> 1.28"
