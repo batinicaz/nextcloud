@@ -1,9 +1,9 @@
 module "linode" {
-  source = "./modules/instance"
-
+  source       = "./modules/instance"
+  boot_command = "snap install nextcloud"
   firewall_rules = {
     inbound = [{
-      label    = "allow-public-https-ingress-ipv4-only"
+      label    = "allow-public-https-ingress-ipv4"
       action   = "ACCEPT"
       protocol = "TCP"
       ports    = "443"
