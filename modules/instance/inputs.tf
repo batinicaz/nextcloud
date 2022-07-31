@@ -5,6 +5,7 @@ variable "backups_enabled" {
 
 variable "boot_command" {
   description = "Optionally provide a command to be run on first boot"
+  type        = string
   default     = ""
 }
 
@@ -89,4 +90,10 @@ variable "make_public_facing_instance" {
 variable "region" {
   type    = string
   default = "eu-west"
+}
+
+variable "stack_script_id" {
+  description = "Optionally provide an existing stack script id to use to provision the instance"
+  type        = string
+  default     = ""
 }

@@ -1,1 +1,0 @@
-data "linode_profile" "current" {}
