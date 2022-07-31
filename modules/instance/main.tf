@@ -1,3 +1,5 @@
+data "linode_profile" "current" {}
+
 resource "linode_stackscript" "instance_boot_command" {
   count       = var.boot_command != "" ? 1 : 0
   description = "Used to configure the ${var.metadata.instance_name} instance on boot"
@@ -22,7 +24,12 @@ resource "linode_instance" "instance" {
     authorized_users = [data.linode_profile.current.username]
     label            = "boot"
     size             = var.instance_disk_size_gb * 1000 // Need to provide size in MB
-    stackscript_id   = var.boot_command != "" ? linode_stackscript.instance_boot_command[0].id : null
+    stackscript_id   = var.boot_command != "" ? linode_stackscript.instance_boot_command[0].id : coalesce(var.stack_script_id, null)
+  }
+
+  disk {
+    label = "swap"
+    size  = 1200
   }
 
   config {
@@ -31,6 +38,9 @@ resource "linode_instance" "instance" {
     devices {
       sda {
         disk_label = "boot"
+      }
+      sdb {
+        disk_label = "swap"
       }
     }
     root_device = "/dev/sda"

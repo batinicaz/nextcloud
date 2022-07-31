@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+# Update OS
+apt-get update && apt-get upgrade --with-new-pkgs -y
+
+# Configure unattended upgrades
+apt-get install unattended-upgrades -y
+
+cat > /etc/apt/apt.conf.d/51custom-unattended-upgrades <<\EOF
+Unattended-Upgrade::Allowed-Origins {
+"$${distro_id}:$${distro_codename}-updates";
+"$${distro_id}:$${distro_codename}-proposed";
+"$${distro_id}:$${distro_codename}-backports";
+};
+EOF
+
+systemctl enable unattended-upgrades
+systemctl restart unattended-upgrades
+
+# Setup live patch
+%{ if livepatch_key != "" }
+snap install canonical-livepatch
+canonical-livepatch enable "${livepatch_key}"
+%{ endif }
+
+# Setup certs
+snap install certbot --classic
+snap set certbot trust-plugin-with-root=ok
+snap install certbot-dns-cloudflare
+
+cat > /root/cloudflare.ini <<EOF
+dns_cloudflare_api_token = ${api_key}
+EOF
+
+certbot certonly --dns-cloudflare --dns-cloudflare-credentials /root/cloudflare.ini \
+-d "${domain}" --agree-tos --register-unsafely-without-email
+
+# Install/configure nextcloud
+snap install nextcloud
+nextcloud.enable-https custom -s \
+"/etc/letsencrypt/live/${domain}/cert.pem" \
+"/etc/letsencrypt/live/${domain}/privkey.pem" \
+"/etc/letsencrypt/live/${domain}/chain.pem"
+
+# Cleanup
+apt-get autoremove -y && apt-get clean
+[[ -f /root/StackScript ]] && rm /root/StackScript

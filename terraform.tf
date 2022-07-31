@@ -1,6 +1,7 @@
 terraform {
   backend "s3" {
     endpoint                    = "eu-central-1.linodeobjects.com"
+    encrypt                     = true
     bucket                      = "batinica-terraform-state"
     key                         = "linode/terraform.json"
     region                      = "eu-central-1"
