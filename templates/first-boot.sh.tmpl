@@ -20,9 +20,9 @@ systemctl enable unattended-upgrades
 systemctl restart unattended-upgrades
 
 # Setup live patch
-%{ if livepatch_key != "" }
-snap install canonical-livepatch
-canonical-livepatch enable "${livepatch_key}"
+%{ if ubuntu_advantage_key != "" }
+apt-get install ubuntu-advantage-tools -y
+ua attach "${ubuntu_advantage_key}"
 %{ endif }
 
 # Setup certs
