@@ -18,6 +18,7 @@ resource "linode_instance" "instance" {
   private_ip      = !var.make_public_facing_instance
   region          = var.region
   tags            = [var.metadata.instance_group]
+  type            = var.instance_type
 
   disk {
     image            = var.image
