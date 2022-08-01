@@ -10,6 +10,11 @@ variable "image" {
   default = "linode/ubuntu22.04"
 }
 
+variable "instance_type" {
+  type    = string
+  default = "g6-standard-2" // Linode 4GB $20/month
+}
+
 variable "livepatch_key" {
   description = "If provided livepatch will be configured on boot"
   type        = string

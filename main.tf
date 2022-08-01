@@ -58,6 +58,7 @@ module "linode" {
     outbound_policy = "DROP"
   }
   image                       = var.image
+  instance_type               = var.instance_type
   make_public_facing_instance = true
   metadata = {
     instance_name  = "Nextcloud"
