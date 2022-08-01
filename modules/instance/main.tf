@@ -15,9 +15,9 @@ resource "linode_instance" "instance" {
   #checkov:skip=CKV_LIN_2:Keys are auto added from user
   backups_enabled = var.backups_enabled
   label           = var.metadata.instance_name
-  group           = var.metadata.instance_group
   private_ip      = !var.make_public_facing_instance
   region          = var.region
+  tags            = [var.metadata.instance_group]
 
   disk {
     image            = var.image
