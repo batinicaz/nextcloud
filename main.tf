@@ -19,6 +19,7 @@ module "linode" {
     subdomain_name        = var.sub_domain
     enabled               = true
   }
+  instance_disk_size_gb = 80.72
   firewall_rules = {
     inbound = [{
       label    = "allow-https-from-cloudflare"
