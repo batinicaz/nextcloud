@@ -15,13 +15,6 @@ variable "instance_type" {
   default = "g6-standard-2" // Linode 4GB $20/month
 }
 
-variable "livepatch_key" {
-  description = "If provided livepatch will be configured on boot"
-  type        = string
-  default     = ""
-  sensitive   = true
-}
-
 variable "top_level_domain" {
   description = "A domain that is currently being managed by cloudflare"
   type        = string
@@ -30,6 +23,13 @@ variable "top_level_domain" {
 variable "sub_domain" {
   description = "The sub domain on which nextcloud will be accessible"
   default     = "nextcloud"
+}
+
+variable "ubuntu_advantage_key" {
+  description = "If provided Ubuntu Advantage will be configured on boot"
+  type        = string
+  default     = ""
+  sensitive   = true
 }
 
 locals {

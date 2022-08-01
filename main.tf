@@ -6,9 +6,9 @@ resource "linode_stackscript" "nextcloud" {
   is_public   = false
   label       = "Nextcloud"
   script = templatefile("${path.module}/templates/first-boot.sh.tmpl", {
-    api_key       = var.cloudflare_api_key
-    domain        = local.nextcloud_domain
-    livepatch_key = var.livepatch_key
+    api_key              = var.cloudflare_api_key
+    domain               = local.nextcloud_domain
+    ubuntu_advantage_key = var.ubuntu_advantage_key
   })
 }
 
