@@ -53,6 +53,7 @@ No modules.
 | <a name="input_make_public_facing_instance"></a> [make\_public\_facing\_instance](#input\_make\_public\_facing\_instance) | n/a | `bool` | `false` | no |
 | <a name="input_metadata"></a> [metadata](#input\_metadata) | n/a | <pre>object({<br>    instance_name  = string<br>    instance_group = string<br>  })</pre> | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | n/a | `string` | `"eu-west"` | no |
+| <a name="input_stack_script_id"></a> [stack\_script\_id](#input\_stack\_script\_id) | Optionally provide an existing stack script id to use to provision the instance | `string` | `""` | no |
 
 ## Outputs
 
